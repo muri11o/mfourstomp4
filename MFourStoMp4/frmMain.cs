@@ -42,12 +42,13 @@ namespace MFourS
                     throw new Exception("Select a folder to save the file");
 
                 MFourSHandler mfsHandler = new MFourSHandler(urlAudio, urlVideo);
-                mfsHandler.CreateTemporaryFolder(_selectedFolder, audioFolderName);
-                mfsHandler.CreateTemporaryFolder(_selectedFolder, videoFolderName);
+                mfsHandler.ConcatenateFiles(@"C:\Users\MurilloFreitas\Desktop\Teste\6f2f59d3-236e-4953-b40c-e15923830ff9", FileTypeEnum.Audio);
+                //mfsHandler.CreateTemporaryFolder(_selectedFolder, audioFolderName);
+                //mfsHandler.CreateTemporaryFolder(_selectedFolder, videoFolderName);
 
-                DownloadManager downloadManager = new DownloadManager();
-                await downloadManager.StartDownloadAsync(mfsHandler.urisAudio, $@"{_selectedFolder}\{audioFolderName}", FileTypeEnum.Audio);
-                await downloadManager.StartDownloadAsync(mfsHandler.urisVideo, $@"{_selectedFolder}\{videoFolderName}", FileTypeEnum.Video);
+                //DownloadManager downloadManager = new DownloadManager();
+                //await downloadManager.StartDownloadAsync(mfsHandler.urisAudio, $@"{_selectedFolder}\{audioFolderName}", FileTypeEnum.Audio);
+                //await downloadManager.StartDownloadAsync(mfsHandler.urisVideo, $@"{_selectedFolder}\{videoFolderName}", FileTypeEnum.Video);
 
                 btnProcess.Enabled = true;
 
@@ -72,7 +73,6 @@ namespace MFourS
             }
 
         }
-
     }
 
 
