@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -63,8 +64,8 @@ namespace MFourS.Classes
         {
             using (var client = new WebClient())
             {
-                var nameFile = $"{Enum.GetName(typeof(FileTypeEnum), fileType) }_{ downloadFile.Segment}";
-                var pathFile = @$"{directory}\{nameFile}.m4s";
+                var nameFile = $"_mfourstomp4_{Enum.GetName(typeof(FileTypeEnum), fileType) }_{ downloadFile.Segment}";
+                var pathFile = Path.Combine(directory, $"{nameFile}.m4s");
                 await client.DownloadFileTaskAsync(downloadFile.Uri, pathFile);
             }
         }

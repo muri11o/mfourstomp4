@@ -25,6 +25,8 @@ namespace MFourS
             InitializeComponent();
             _selectedFolder = "";
             lblSelectSaveTo.Text = "select folder";
+            
+
         }
 
         private async void btnProcess_Click(object sender, EventArgs e)
@@ -34,6 +36,7 @@ namespace MFourS
             var urlAudio = txtLastAudioUri.Text;
             var urlVideo = txtLastVideoUri.Text;
 
+
             try
             {
                 btnProcess.Enabled = false;
@@ -42,13 +45,22 @@ namespace MFourS
                     throw new Exception("Select a folder to save the file");
 
                 MFourSHandler mfsHandler = new MFourSHandler(urlAudio, urlVideo);
-                mfsHandler.ConcatenateFiles(@"C:\Users\MurilloFreitas\Desktop\Teste\6f2f59d3-236e-4953-b40c-e15923830ff9", FileTypeEnum.Audio);
-                //mfsHandler.CreateTemporaryFolder(_selectedFolder, audioFolderName);
-                //mfsHandler.CreateTemporaryFolder(_selectedFolder, videoFolderName);
 
-                //DownloadManager downloadManager = new DownloadManager();
-                //await downloadManager.StartDownloadAsync(mfsHandler.urisAudio, $@"{_selectedFolder}\{audioFolderName}", FileTypeEnum.Audio);
-                //await downloadManager.StartDownloadAsync(mfsHandler.urisVideo, $@"{_selectedFolder}\{videoFolderName}", FileTypeEnum.Video);
+                mfsHandler.CreateTemporaryFolder(_selectedFolder, audioFolderName);
+                mfsHandler.CreateTemporaryFolder(_selectedFolder, videoFolderName);
+
+                DownloadManager downloadManager = new DownloadManager();
+                await downloadManager.StartDownloadAsync(mfsHandler.urisAudio, Path.Combine(_selectedFolder, audioFolderName), FileTypeEnum.Audio);
+                await downloadManager.StartDownloadAsync(mfsHandler.urisVideo, Path.Combine(_selectedFolder, videoFolderName), FileTypeEnum.Video);
+
+                await mfsHandler.ConcatenateFiles(Path.Combine(_selectedFolder, audioFolderName), FileTypeEnum.Audio);
+                await mfsHandler.ConcatenateFiles(Path.Combine(_selectedFolder, videoFolderName), FileTypeEnum.Video);
+
+                var pathVideo = await mfsHandler.ConvertFile(Path.Combine(_selectedFolder, videoFolderName, $"{Enum.GetName(typeof(FileTypeEnum), FileTypeEnum.Video)}.m4s"), Path.Combine(_selectedFolder, videoFolderName));
+                var pathVideoFineshed = await mfsHandler.JoinFiles(pathVideo, Path.Combine(_selectedFolder, audioFolderName, $"{Enum.GetName(typeof(FileTypeEnum), FileTypeEnum.Audio)}.m4s"), _selectedFolder);
+
+
+                MessageBox.Show($"{pathVideoFineshed}", "Your video is ready :D", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                 btnProcess.Enabled = true;
 
@@ -58,6 +70,8 @@ namespace MFourS
                 MessageBox.Show($"{ex.Message}", "Ops...Something went wrong :(", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 btnProcess.Enabled = true;
             }
+
+
         }
 
         private void lblSelectSaveTo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

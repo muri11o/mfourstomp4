@@ -1,6 +1,7 @@
 ﻿using MFourS.Enumerables;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -27,37 +28,37 @@ namespace MFourS.Classes
 
         private void FillUriStackForDownload()
         {
-            int numberOfSegmentAudio = GetNumberOfSegment(_lastAudioUri);
-            int numberOfSegmentVideo = GetNumberOfSegment(_lastVideoUri);
+            int numberSegmentAudio = GetNumberSegment(_lastAudioUri);
+            int numberSegmentVideo = GetNumberSegment(_lastVideoUri);
 
-            if (numberOfSegmentAudio == 0 || numberOfSegmentVideo == 0)
+            if (numberSegmentAudio == -1 || numberSegmentVideo == -1)
                 throw new Exception("Invalid uris");
 
-            urisAudio = CreateUris(_lastAudioUri, numberOfSegmentAudio);
-            urisVideo = CreateUris(_lastVideoUri, numberOfSegmentVideo);
+            urisAudio = CreateUris(_lastAudioUri, numberSegmentAudio);
+            urisVideo = CreateUris(_lastVideoUri, numberSegmentVideo);
 
         }
 
-        private int GetNumberOfSegment(string str)
+        private int GetNumberSegment(string str)
         {
             string _str = str;
 
             if (String.IsNullOrEmpty(_str))
-                return 0;
+                return -1;
 
             var match = Regex.Match(_str, @"[#][0-9]+[#]");
 
             var subStr = match.Groups[0].ToString();
 
             if (String.IsNullOrEmpty(subStr))
-                return 0;
+                return -1;
 
             bool result = int.TryParse(subStr.Substring(1, subStr.Length - 2), out int number);
 
             if (result)
                 return number;
             else
-                return 0;
+                return -1;
 
         }
 
@@ -68,7 +69,7 @@ namespace MFourS.Classes
 
             Stack<DownloadFile> uris = new Stack<DownloadFile>();
 
-            while (cont > 0)
+            while (cont >= 0)
             {
                 string result = _str.Replace($"#{numberSegment}#", $"{cont}");
                 uris.Push(new DownloadFile(result, cont.ToString()));
@@ -80,7 +81,7 @@ namespace MFourS.Classes
 
         public void CreateTemporaryFolder(string directory, string folderName)
         {
-            string path = $@"{directory}\{folderName}";
+            string path = Path.Combine(directory, folderName);
 
             if (Directory.Exists(path))
                 return;
@@ -88,13 +89,13 @@ namespace MFourS.Classes
             Directory.CreateDirectory(path);
         }
 
-        public void ConcatenateFiles(string path, FileTypeEnum fileType)
+        public async Task ConcatenateFiles(string path, FileTypeEnum fileType)
         {
 
             var files = GetFiles(path);
             var orderedFiles = OrderFiles(files, path);
             var filebat = CreateAndWriteBatFile(orderedFiles, path, fileType);
-            ExecuteBatFile(filebat);
+            await ExecuteBatFile(filebat);
         }
 
         public string[] GetFiles(string path)
@@ -133,7 +134,7 @@ namespace MFourS.Classes
                 if (!int.TryParse(vNameFile[2], out int index))
                     throw new Exception("Error");
 
-                orderedFiles[index - 1] = Path.Combine(path, $"_{vNameFile[0]}_{vNameFile[1]}_{vNameFile[2]}.m4s");
+                orderedFiles[index] = Path.Combine(path, $"_{vNameFile[0]}_{vNameFile[1]}_{vNameFile[2]}.m4s");
             }
 
             return orderedFiles;
@@ -158,9 +159,72 @@ namespace MFourS.Classes
             return fileBat;
         }
 
-        private void ExecuteBatFile(string path)
+        private async Task  ExecuteBatFile(string path)
         {
-            System.Diagnostics.Process.Start(path);
+            await Task.Run(() =>
+            {
+                var startInfo = new ProcessStartInfo("cmd.exe", "/c " + path);
+                startInfo.CreateNoWindow = true;
+                startInfo.UseShellExecute = true;
+
+                using (var process = new Process { StartInfo = startInfo })
+                {
+                    process.Start();
+                    process.WaitForExit();
+                }
+            });
         }
+
+        public async Task<string> ConvertFile(string path, string folder)
+        {
+            var pathVideo = Path.Combine(folder, $"{Guid.NewGuid()}.mp4");
+
+            await Task.Run(() =>
+            {
+                var startInfo = new ProcessStartInfo
+                {
+                    FileName = Path.Combine(AppContext.BaseDirectory, "ffmpeg.exe"),
+                    Arguments = $"-y -i \"{path}\" \"{pathVideo}\"",
+                    WorkingDirectory = AppContext.BaseDirectory,
+                    CreateNoWindow = true,
+                    UseShellExecute = true 
+                };
+
+                using (var process = new Process { StartInfo = startInfo})
+                {
+                    process.Start();
+                    process.WaitForExit();
+                }
+            });
+
+            return pathVideo;
+        }
+
+        public async Task<string> JoinFiles(string pathVideo, string pathAudio, string folder)
+        {
+            var pathVideoFineshed = Path.Combine(folder, $"{Guid.NewGuid()}.mp4");
+
+            await Task.Run(() =>
+            {
+                var startInfo = new ProcessStartInfo
+                {
+                    FileName = Path.Combine(AppContext.BaseDirectory, "ffmpeg.exe"),
+                    Arguments = $"-y -i \"{pathVideo}\" -i \"{pathAudio}\" \"{pathVideoFineshed}\"",
+                    WorkingDirectory = AppContext.BaseDirectory,
+                    CreateNoWindow = true,
+                    UseShellExecute = true
+                };
+
+                using (var process = new Process { StartInfo = startInfo })
+                {
+                    process.Start();
+                    process.WaitForExit();
+                }
+            });
+
+            return pathVideoFineshed;
+        }
+
+        
     }
 }
