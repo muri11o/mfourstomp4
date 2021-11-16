@@ -59,6 +59,8 @@ namespace MFourS
                 var pathVideo = await mfsHandler.ConvertFile(Path.Combine(_selectedFolder, videoFolderName, $"{Enum.GetName(typeof(FileTypeEnum), FileTypeEnum.Video)}.m4s"), Path.Combine(_selectedFolder, videoFolderName));
                 var pathVideoFineshed = await mfsHandler.JoinFiles(pathVideo, Path.Combine(_selectedFolder, audioFolderName, $"{Enum.GetName(typeof(FileTypeEnum), FileTypeEnum.Audio)}.m4s"), _selectedFolder);
 
+                mfsHandler.DeleteTemporaryFolder(Path.Combine(_selectedFolder, audioFolderName));
+                mfsHandler.DeleteTemporaryFolder(Path.Combine(_selectedFolder, videoFolderName));
 
                 MessageBox.Show($"{pathVideoFineshed}", "Your video is ready :D", MessageBoxButtons.OK, MessageBoxIcon.Information);
 

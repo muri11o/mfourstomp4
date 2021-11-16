@@ -225,6 +225,9 @@ namespace MFourS.Classes
             return pathVideoFineshed;
         }
 
-        
+        public void DeleteTemporaryFolder(string path)
+        {
+            Directory.Delete(path, true);
+        }
     }
 }

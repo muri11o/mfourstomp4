@@ -93,17 +93,15 @@
             this.lblSelectSaveTo.AutoSize = true;
             this.lblSelectSaveTo.Location = new System.Drawing.Point(99, 82);
             this.lblSelectSaveTo.Name = "lblSelectSaveTo";
-            this.lblSelectSaveTo.Size = new System.Drawing.Size(60, 15);
+            this.lblSelectSaveTo.Size = new System.Drawing.Size(0, 15);
             this.lblSelectSaveTo.TabIndex = 6;
-            this.lblSelectSaveTo.TabStop = true;
-            this.lblSelectSaveTo.Text = "linkLabel1";
             this.lblSelectSaveTo.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblSelectSaveTo_LinkClicked);
             // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(570, 185);
+            this.ClientSize = new System.Drawing.Size(570, 157);
             this.Controls.Add(this.lblSelectSaveTo);
             this.Controls.Add(this.lblSaveTo);
             this.Controls.Add(this.txtLastVideoUri);
