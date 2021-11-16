@@ -1,18 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using MFourS.Classes;
+﻿using MFourS.Classes;
 using MFourS.Enumerables;
+using System;
+using System.IO;
+using System.Windows.Forms;
 
 namespace MFourS
 {
@@ -25,7 +15,10 @@ namespace MFourS
             InitializeComponent();
             _selectedFolder = "";
             lblSelectSaveTo.Text = "select folder";
-            
+            lblProccesing.Text = "Processing...";
+            picImageProcessing.LoadAsync(Path.Combine(AppContext.BaseDirectory, "processing.gif"));
+            InvisibleProcessing();
+            btnCancel.Enabled = false;
 
         }
 
@@ -36,10 +29,10 @@ namespace MFourS
             var urlAudio = txtLastAudioUri.Text;
             var urlVideo = txtLastVideoUri.Text;
 
-
             try
             {
-                btnProcess.Enabled = false;
+                DisableControls();
+                VisibleProcessing();
 
                 if (String.IsNullOrEmpty(_selectedFolder))
                     throw new Exception("Select a folder to save the file");
@@ -49,28 +42,44 @@ namespace MFourS
                 mfsHandler.CreateTemporaryFolder(_selectedFolder, audioFolderName);
                 mfsHandler.CreateTemporaryFolder(_selectedFolder, videoFolderName);
 
+                txtStatus.AppendText(Environment.NewLine + "Download started...");
                 DownloadManager downloadManager = new DownloadManager();
                 await downloadManager.StartDownloadAsync(mfsHandler.urisAudio, Path.Combine(_selectedFolder, audioFolderName), FileTypeEnum.Audio);
                 await downloadManager.StartDownloadAsync(mfsHandler.urisVideo, Path.Combine(_selectedFolder, videoFolderName), FileTypeEnum.Video);
+                txtStatus.AppendText(Environment.NewLine + "Download finished");
 
+                txtStatus.AppendText(Environment.NewLine + "Concatenating files...");
                 await mfsHandler.ConcatenateFiles(Path.Combine(_selectedFolder, audioFolderName), FileTypeEnum.Audio);
                 await mfsHandler.ConcatenateFiles(Path.Combine(_selectedFolder, videoFolderName), FileTypeEnum.Video);
+                txtStatus.AppendText(Environment.NewLine + "Concatenation finished");
 
+                txtStatus.AppendText(Environment.NewLine + "Converting video .m4s to video .mp4...");
                 var pathVideo = await mfsHandler.ConvertFile(Path.Combine(_selectedFolder, videoFolderName, $"{Enum.GetName(typeof(FileTypeEnum), FileTypeEnum.Video)}.m4s"), Path.Combine(_selectedFolder, videoFolderName));
-                var pathVideoFineshed = await mfsHandler.JoinFiles(pathVideo, Path.Combine(_selectedFolder, audioFolderName, $"{Enum.GetName(typeof(FileTypeEnum), FileTypeEnum.Audio)}.m4s"), _selectedFolder);
+                txtStatus.AppendText(Environment.NewLine + "Conversion finished");
 
+                txtStatus.AppendText(Environment.NewLine + "Joining .mp4 video file with .m4s audio file...");
+                var pathVideoFineshed = await mfsHandler.JoinFiles(pathVideo, Path.Combine(_selectedFolder, audioFolderName, $"{Enum.GetName(typeof(FileTypeEnum), FileTypeEnum.Audio)}.m4s"), _selectedFolder);
+                txtStatus.AppendText(Environment.NewLine + "Joining finished");
+
+                txtStatus.AppendText(Environment.NewLine + "Deleting temporary files...");
                 mfsHandler.DeleteTemporaryFolder(Path.Combine(_selectedFolder, audioFolderName));
                 mfsHandler.DeleteTemporaryFolder(Path.Combine(_selectedFolder, videoFolderName));
+                txtStatus.AppendText(Environment.NewLine + "Temporary files deleted");
 
+                txtStatus.AppendText(Environment.NewLine + $"Your video is ready :D   >> {pathVideoFineshed}");
                 MessageBox.Show($"{pathVideoFineshed}", "Your video is ready :D", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                btnProcess.Enabled = true;
+                EnableControls();
+                InvisibleProcessing();
+                
 
             }
             catch (Exception ex)
             {
+                txtStatus.AppendText(Environment.NewLine + $"Ops...Something went wrong :(   >> {ex.Message}");
                 MessageBox.Show($"{ex.Message}", "Ops...Something went wrong :(", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                btnProcess.Enabled = true;
+                EnableControls();
+                InvisibleProcessing();
             }
 
 
@@ -87,7 +96,57 @@ namespace MFourS
                     lblSelectSaveTo.Text = String.IsNullOrEmpty(_selectedFolder) ? "select folder" : _selectedFolder;
                 }
             }
+        }
 
+        private void DisableControls()
+        {
+            txtLastAudioUri.Enabled = false;
+            txtLastVideoUri.Enabled = false;
+            EnableButtonCancel();
+        }
+
+        private void EnableControls()
+        {
+            txtLastAudioUri.Enabled = true;
+            txtLastVideoUri.Enabled = true;
+            DisableButtonCancel();
+        }
+
+        private void VisibleProcessing()
+        {
+            lblProccesing.Visible = true;
+            picImageProcessing.Visible = true;
+        }
+
+        private void InvisibleProcessing()
+        {
+            lblProccesing.Visible = false;
+            picImageProcessing.Visible = false;
+        }
+
+        private void EnableButtonCancel()
+        {
+            btnCancel.Enabled = true;
+            btnProcess.Enabled = false;
+            btnCleanAll.Enabled = false;
+        }
+
+        private void DisableButtonCancel()
+        {
+            btnCancel.Enabled = false;
+            btnProcess.Enabled = true;
+            btnCleanAll.Enabled = true;
+        }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void btnCleanAll_Click(object sender, EventArgs e)
+        {
+            txtLastAudioUri.Text = "";
+            txtLastVideoUri.Text = "";
+            txtStatus.Text = "";
         }
     }
 
