@@ -17,7 +17,7 @@ IMPORTANT: You must decor the segment number using # before and after it.
 For example: example-segment-#10#.m4s
 
 Demonstration of use:
-https://www.youtube.com/
+https://www.youtube.com/watch?v=kUj8YqIoYOI
 
 -------------------------------------
 MIT License
