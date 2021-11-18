@@ -165,9 +165,9 @@ namespace MFourS.Classes
                 for (int i = 0; i < files.Length; i++)
                 {
                     if (i == 0)
-                        sw.WriteLine($"type {files[i]} > {Path.Combine(path, $"{Enum.GetName(typeof(FileTypeEnum), fileType)}.m4s")}");
+                        sw.WriteLine($"type \"{files[i]}\" >\"{Path.Combine(path, $"{Enum.GetName(typeof(FileTypeEnum), fileType)}.m4s")}\"");
                     else
-                        sw.WriteLine($"type {files[i]} >> {Path.Combine(path, $"{Enum.GetName(typeof(FileTypeEnum), fileType)}.m4s")}");
+                        sw.WriteLine($"type \"{files[i]}\" >>\"{Path.Combine(path, $"{Enum.GetName(typeof(FileTypeEnum), fileType)}.m4s")}\"");
                 }
             }
 
@@ -178,9 +178,9 @@ namespace MFourS.Classes
         {
             await Task.Run(() =>
             {
-                var startInfo = new ProcessStartInfo("cmd.exe", "/c " + path);
+                var startInfo = new ProcessStartInfo("cmd.exe", "/c " + $"\"{path}\"");
                 startInfo.CreateNoWindow = true;
-                startInfo.UseShellExecute = true;
+                startInfo.UseShellExecute = false;
 
                 using (var process = new Process { StartInfo = startInfo })
                 {
