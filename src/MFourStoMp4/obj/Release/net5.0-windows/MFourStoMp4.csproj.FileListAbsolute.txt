@@ -17,4 +17,3 @@ C:\Users\MurilloFreitas\source\repos\MFourStoMp4\src\MFourStoMp4\obj\Release\net
 C:\Users\MurilloFreitas\source\repos\MFourStoMp4\src\MFourStoMp4\obj\Release\net5.0-windows\ref\MFourStoMp4.dll
 C:\Users\MurilloFreitas\source\repos\MFourStoMp4\src\MFourStoMp4\obj\Release\net5.0-windows\MFourStoMp4.pdb
 C:\Users\MurilloFreitas\source\repos\MFourStoMp4\src\MFourStoMp4\obj\Release\net5.0-windows\MFourStoMp4.genruntimeconfig.cache
-C:\Users\MurilloFreitas\source\repos\MFourStoMp4\src\MFourStoMp4\obj\Release\net5.0-windows\MFourStoMp4.csproj.AssemblyReference.cache
