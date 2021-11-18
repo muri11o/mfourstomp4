@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "MFourStoMp4/1.0.0": {
+        "runtime": {
+          "MFourStoMp4.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "MFourStoMp4/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
