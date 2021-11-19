@@ -48,7 +48,7 @@
             // 
             // btnProcess
             // 
-            this.btnProcess.Location = new System.Drawing.Point(1111, 104);
+            this.btnProcess.Location = new System.Drawing.Point(1003, 102);
             this.btnProcess.Name = "btnProcess";
             this.btnProcess.Size = new System.Drawing.Size(75, 23);
             this.btnProcess.TabIndex = 0;
@@ -78,14 +78,14 @@
             // 
             this.txtLastAudioUri.Location = new System.Drawing.Point(99, 14);
             this.txtLastAudioUri.Name = "txtLastAudioUri";
-            this.txtLastAudioUri.Size = new System.Drawing.Size(1168, 23);
+            this.txtLastAudioUri.Size = new System.Drawing.Size(1059, 23);
             this.txtLastAudioUri.TabIndex = 3;
             // 
             // txtLastVideoUri
             // 
             this.txtLastVideoUri.Location = new System.Drawing.Point(99, 45);
             this.txtLastVideoUri.Name = "txtLastVideoUri";
-            this.txtLastVideoUri.Size = new System.Drawing.Size(1168, 23);
+            this.txtLastVideoUri.Size = new System.Drawing.Size(1060, 23);
             this.txtLastVideoUri.TabIndex = 4;
             // 
             // lblSaveTo
@@ -116,12 +116,12 @@
             this.txtStatus.Name = "txtStatus";
             this.txtStatus.ReadOnly = true;
             this.txtStatus.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txtStatus.Size = new System.Drawing.Size(1090, 212);
+            this.txtStatus.Size = new System.Drawing.Size(969, 212);
             this.txtStatus.TabIndex = 7;
             // 
             // picImage
             // 
-            this.picImage.Location = new System.Drawing.Point(1124, 206);
+            this.picImage.Location = new System.Drawing.Point(1016, 204);
             this.picImage.Name = "picImage";
             this.picImage.Size = new System.Drawing.Size(118, 105);
             this.picImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -141,7 +141,7 @@
             // 
             this.lblProccesing.AutoSize = true;
             this.lblProccesing.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblProccesing.Location = new System.Drawing.Point(1124, 314);
+            this.lblProccesing.Location = new System.Drawing.Point(1016, 312);
             this.lblProccesing.Name = "lblProccesing";
             this.lblProccesing.Size = new System.Drawing.Size(142, 25);
             this.lblProccesing.TabIndex = 11;
@@ -149,7 +149,7 @@
             // 
             // btnCleanAll
             // 
-            this.btnCleanAll.Location = new System.Drawing.Point(1192, 104);
+            this.btnCleanAll.Location = new System.Drawing.Point(1084, 102);
             this.btnCleanAll.Name = "btnCleanAll";
             this.btnCleanAll.Size = new System.Drawing.Size(75, 23);
             this.btnCleanAll.TabIndex = 13;
@@ -159,7 +159,7 @@
             // 
             // btnAbout
             // 
-            this.btnAbout.Location = new System.Drawing.Point(1191, 349);
+            this.btnAbout.Location = new System.Drawing.Point(1083, 347);
             this.btnAbout.Name = "btnAbout";
             this.btnAbout.Size = new System.Drawing.Size(75, 23);
             this.btnAbout.TabIndex = 14;
@@ -181,7 +181,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1279, 384);
+            this.ClientSize = new System.Drawing.Size(1183, 384);
             this.Controls.Add(this.chkDeleteTemporaryFiles);
             this.Controls.Add(this.btnAbout);
             this.Controls.Add(this.btnCleanAll);

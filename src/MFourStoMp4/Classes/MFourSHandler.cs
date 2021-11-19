@@ -106,8 +106,8 @@ namespace MFourS.Classes
             var filebat = CreateAndWriteBatFile(orderedFiles, path, fileType);
             await ExecuteBatFile(filebat);
 
-            if (Directory.Exists($"{Path.Combine(path, $"{Enum.GetName(typeof(FileTypeEnum), fileType)}.m4s")}"))
-                throw new Exception($"File not found: {Path.Combine(path, $"{Enum.GetName(typeof(FileTypeEnum), fileType)}.m4s")}");
+            if (!File.Exists($"{Path.Combine(path, $"{Enum.GetName(typeof(FileTypeEnum), fileType)}.m4s")}"))
+                throw new Exception($"File not found: {Path.Combine(path, $"{Enum.GetName(typeof(FileTypeEnum), fileType)}.m4s")}. One of the reasons for this error could be the use of special characters in the directory. "); ;
 
             if (new FileInfo($"{Path.Combine(path, $"{Enum.GetName(typeof(FileTypeEnum), fileType)}.m4s")}").Length <= 0)
                 throw new Exception("The downloaded file is invalid");

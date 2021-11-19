@@ -133,6 +133,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmAbout";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MFourStoMp4 - About";
             ((System.ComponentModel.ISupportInitialize)(this.picImageAbout)).EndInit();
             this.ResumeLayout(false);
