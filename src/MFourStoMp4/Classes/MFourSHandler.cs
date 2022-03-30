@@ -190,9 +190,14 @@ namespace MFourS.Classes
             });
         }
 
-        public async Task<string> ConvertAndJoinFiles(string pathVideo, string pathAudio, string folder)
+        public async Task<string> ConvertAndJoinFiles(string pathVideo, string pathAudio, string folder, string nameVideo)
         {
-            var pathVideoFineshed = Path.Combine(folder, $"{Guid.NewGuid()}.mp4");
+            var _nameVideo = string.IsNullOrEmpty(nameVideo) ? Guid.NewGuid().ToString() : nameVideo;
+
+            if (File.Exists(Path.Combine(folder, $"{_nameVideo}.mp4")))
+                _nameVideo = $"{_nameVideo}_{DateTime.Now.ToString("HHmmss")}";
+
+            var pathVideoFineshed = Path.Combine(folder, $"{_nameVideo}.mp4");
 
             await Task.Run(() =>
             {
@@ -219,6 +224,58 @@ namespace MFourS.Classes
         {
             if (Directory.Exists(path))
                 Directory.Delete(path, true);
+        }
+
+        public static List<DownloadFileList> LoadList(string path)
+        {
+            
+            var listDownload = new List<DownloadFileList>();
+
+            if (!string.IsNullOrEmpty(path))
+            {
+
+                StreamReader sr = new StreamReader(path);
+
+                int contador = 1;
+                string urlAudio = "";
+                string urlVideo = "";
+                string nameFile = "";
+
+                while (!sr.EndOfStream)
+                {
+                    if (contador == 1)
+                    {
+                        urlAudio = sr.ReadLine();
+                        contador++;
+                    }
+                    else if (contador == 2)
+                    {
+                        urlVideo = sr.ReadLine();
+                        contador++;
+                    }
+                    else if (contador == 3)
+                    {
+                        nameFile = sr.ReadLine();
+
+                        var downloadFile = new DownloadFileList();
+                        downloadFile.UrlAudio = urlAudio;
+                        downloadFile.UrlVideo = urlVideo;
+                        downloadFile.NameVideo = nameFile;
+                        listDownload.Add(downloadFile);
+
+                        urlAudio = "";
+                        urlVideo = "";
+                        nameFile = "";
+                        contador = 1;
+
+                    }
+                }
+
+                sr.Close();
+            }
+
+            return listDownload;
+
         }
     }
 }

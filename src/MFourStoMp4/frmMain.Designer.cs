@@ -43,12 +43,19 @@
             this.btnCleanAll = new System.Windows.Forms.Button();
             this.btnAbout = new System.Windows.Forms.Button();
             this.chkDeleteTemporaryFiles = new System.Windows.Forms.CheckBox();
+            this.txtNameVideo = new System.Windows.Forms.TextBox();
+            this.lblNameVideo = new System.Windows.Forms.Label();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnLoadList = new System.Windows.Forms.Button();
+            this.lblNumbr = new System.Windows.Forms.Label();
+            this.btnProcessList = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.picImage)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // btnProcess
             // 
-            this.btnProcess.Location = new System.Drawing.Point(1003, 102);
+            this.btnProcess.Location = new System.Drawing.Point(826, 141);
             this.btnProcess.Name = "btnProcess";
             this.btnProcess.Size = new System.Drawing.Size(75, 23);
             this.btnProcess.TabIndex = 0;
@@ -78,20 +85,20 @@
             // 
             this.txtLastAudioUri.Location = new System.Drawing.Point(99, 14);
             this.txtLastAudioUri.Name = "txtLastAudioUri";
-            this.txtLastAudioUri.Size = new System.Drawing.Size(1059, 23);
+            this.txtLastAudioUri.Size = new System.Drawing.Size(883, 23);
             this.txtLastAudioUri.TabIndex = 3;
             // 
             // txtLastVideoUri
             // 
             this.txtLastVideoUri.Location = new System.Drawing.Point(99, 45);
             this.txtLastVideoUri.Name = "txtLastVideoUri";
-            this.txtLastVideoUri.Size = new System.Drawing.Size(1060, 23);
+            this.txtLastVideoUri.Size = new System.Drawing.Size(883, 23);
             this.txtLastVideoUri.TabIndex = 4;
             // 
             // lblSaveTo
             // 
             this.lblSaveTo.AutoSize = true;
-            this.lblSaveTo.Location = new System.Drawing.Point(45, 82);
+            this.lblSaveTo.Location = new System.Drawing.Point(45, 119);
             this.lblSaveTo.Name = "lblSaveTo";
             this.lblSaveTo.Size = new System.Drawing.Size(48, 15);
             this.lblSaveTo.TabIndex = 5;
@@ -100,7 +107,7 @@
             // lblSelectSaveTo
             // 
             this.lblSelectSaveTo.AutoSize = true;
-            this.lblSelectSaveTo.Location = new System.Drawing.Point(99, 82);
+            this.lblSelectSaveTo.Location = new System.Drawing.Point(99, 119);
             this.lblSelectSaveTo.Name = "lblSelectSaveTo";
             this.lblSelectSaveTo.Size = new System.Drawing.Size(37, 15);
             this.lblSelectSaveTo.TabIndex = 6;
@@ -111,7 +118,7 @@
             // txtStatus
             // 
             this.txtStatus.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtStatus.Location = new System.Drawing.Point(13, 160);
+            this.txtStatus.Location = new System.Drawing.Point(13, 197);
             this.txtStatus.Multiline = true;
             this.txtStatus.Name = "txtStatus";
             this.txtStatus.ReadOnly = true;
@@ -121,7 +128,7 @@
             // 
             // picImage
             // 
-            this.picImage.Location = new System.Drawing.Point(1016, 204);
+            this.picImage.Location = new System.Drawing.Point(1016, 241);
             this.picImage.Name = "picImage";
             this.picImage.Size = new System.Drawing.Size(118, 105);
             this.picImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -131,7 +138,7 @@
             // lblStatus
             // 
             this.lblStatus.AutoSize = true;
-            this.lblStatus.Location = new System.Drawing.Point(13, 142);
+            this.lblStatus.Location = new System.Drawing.Point(13, 179);
             this.lblStatus.Name = "lblStatus";
             this.lblStatus.Size = new System.Drawing.Size(42, 15);
             this.lblStatus.TabIndex = 10;
@@ -141,7 +148,7 @@
             // 
             this.lblProccesing.AutoSize = true;
             this.lblProccesing.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblProccesing.Location = new System.Drawing.Point(1016, 312);
+            this.lblProccesing.Location = new System.Drawing.Point(1016, 349);
             this.lblProccesing.Name = "lblProccesing";
             this.lblProccesing.Size = new System.Drawing.Size(142, 25);
             this.lblProccesing.TabIndex = 11;
@@ -149,7 +156,7 @@
             // 
             // btnCleanAll
             // 
-            this.btnCleanAll.Location = new System.Drawing.Point(1084, 102);
+            this.btnCleanAll.Location = new System.Drawing.Point(907, 141);
             this.btnCleanAll.Name = "btnCleanAll";
             this.btnCleanAll.Size = new System.Drawing.Size(75, 23);
             this.btnCleanAll.TabIndex = 13;
@@ -159,7 +166,7 @@
             // 
             // btnAbout
             // 
-            this.btnAbout.Location = new System.Drawing.Point(1083, 347);
+            this.btnAbout.Location = new System.Drawing.Point(1083, 384);
             this.btnAbout.Name = "btnAbout";
             this.btnAbout.Size = new System.Drawing.Size(75, 23);
             this.btnAbout.TabIndex = 14;
@@ -170,18 +177,78 @@
             // chkDeleteTemporaryFiles
             // 
             this.chkDeleteTemporaryFiles.AutoSize = true;
-            this.chkDeleteTemporaryFiles.Location = new System.Drawing.Point(99, 104);
+            this.chkDeleteTemporaryFiles.Location = new System.Drawing.Point(99, 141);
             this.chkDeleteTemporaryFiles.Name = "chkDeleteTemporaryFiles";
             this.chkDeleteTemporaryFiles.Size = new System.Drawing.Size(141, 19);
             this.chkDeleteTemporaryFiles.TabIndex = 15;
             this.chkDeleteTemporaryFiles.Text = "Delete temporary files";
             this.chkDeleteTemporaryFiles.UseVisualStyleBackColor = true;
             // 
+            // txtNameVideo
+            // 
+            this.txtNameVideo.Location = new System.Drawing.Point(98, 74);
+            this.txtNameVideo.Name = "txtNameVideo";
+            this.txtNameVideo.Size = new System.Drawing.Size(884, 23);
+            this.txtNameVideo.TabIndex = 17;
+            // 
+            // lblNameVideo
+            // 
+            this.lblNameVideo.AutoSize = true;
+            this.lblNameVideo.Location = new System.Drawing.Point(18, 82);
+            this.lblNameVideo.Name = "lblNameVideo";
+            this.lblNameVideo.Size = new System.Drawing.Size(74, 15);
+            this.lblNameVideo.TabIndex = 16;
+            this.lblNameVideo.Text = "Name video:";
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.btnProcessList);
+            this.groupBox1.Controls.Add(this.lblNumbr);
+            this.groupBox1.Controls.Add(this.btnLoadList);
+            this.groupBox1.Location = new System.Drawing.Point(997, 14);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(174, 163);
+            this.groupBox1.TabIndex = 18;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "List";
+            // 
+            // btnLoadList
+            // 
+            this.btnLoadList.Location = new System.Drawing.Point(19, 30);
+            this.btnLoadList.Name = "btnLoadList";
+            this.btnLoadList.Size = new System.Drawing.Size(75, 23);
+            this.btnLoadList.TabIndex = 19;
+            this.btnLoadList.Text = "Load list";
+            this.btnLoadList.UseVisualStyleBackColor = true;
+            this.btnLoadList.Click += new System.EventHandler(this.btnLoadList_Click);
+            // 
+            // lblNumbr
+            // 
+            this.lblNumbr.AutoSize = true;
+            this.lblNumbr.Location = new System.Drawing.Point(19, 68);
+            this.lblNumbr.Name = "lblNumbr";
+            this.lblNumbr.Size = new System.Drawing.Size(54, 15);
+            this.lblNumbr.TabIndex = 19;
+            this.lblNumbr.Text = "Number:";
+            // 
+            // btnProcessList
+            // 
+            this.btnProcessList.Location = new System.Drawing.Point(86, 127);
+            this.btnProcessList.Name = "btnProcessList";
+            this.btnProcessList.Size = new System.Drawing.Size(75, 23);
+            this.btnProcessList.TabIndex = 20;
+            this.btnProcessList.Text = "Process list";
+            this.btnProcessList.UseVisualStyleBackColor = true;
+            this.btnProcessList.Click += new System.EventHandler(this.btnProcessList_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1183, 384);
+            this.ClientSize = new System.Drawing.Size(1183, 421);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.txtNameVideo);
+            this.Controls.Add(this.lblNameVideo);
             this.Controls.Add(this.chkDeleteTemporaryFiles);
             this.Controls.Add(this.btnAbout);
             this.Controls.Add(this.btnCleanAll);
@@ -202,7 +269,10 @@
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "MFourS to MP4";
+            this.Load += new System.EventHandler(this.frmMain_Load);
             ((System.ComponentModel.ISupportInitialize)(this.picImage)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -224,5 +294,11 @@
         private System.Windows.Forms.Button btnCleanAll;
         private System.Windows.Forms.Button btnAbout;
         private System.Windows.Forms.CheckBox chkDeleteTemporaryFiles;
+        private System.Windows.Forms.TextBox txtNameVideo;
+        private System.Windows.Forms.Label lblNameVideo;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Button btnProcessList;
+        private System.Windows.Forms.Label lblNumbr;
+        private System.Windows.Forms.Button btnLoadList;
     }
 }
