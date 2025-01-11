@@ -18,9 +18,6 @@ MFourStoMp4 has a very simple GUI, it consists of 4 basic steps:
 IMPORTANT: You must decor the segment number using # before and after it.
 For example: example-segment-#10#.m4s
 
-Demonstration of use:
-https://www.youtube.com/watch?v=kUj8YqIoYOI
-
 <img src="https://github.com/muri11o/mfourstomp4/blob/master/MFourStoMp4/images/main.png"></img>
 
 
